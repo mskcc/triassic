@@ -62,7 +62,7 @@ RUN ./configure --prefix=/bin/htslib-1.18 \
     && make \
     && make install
 
-RUN apt-get install git
+RUN apt-get install -y git
 
 # Create image
 
