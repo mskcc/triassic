@@ -39,7 +39,7 @@ RUN apt-get update \
             scipy \
             pandas
 
-RUN apt-get install -y git uuid-runtime
+#RUN apt-get install -y git uuid-runtime
 
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
@@ -66,6 +66,7 @@ RUN ./configure --prefix=/bin/htslib-1.18 \
     && make \
     && make install
 
+
 # Create image
 
 FROM base as image
@@ -74,5 +75,11 @@ WORKDIR "/"
 COPY --from=build /bin/samtools-1.18 /bin/samtools-1.18
 COPY --from=build /bin/htslib-1.18 /bin/htslib-1.18
 ENV PATH="${PATH}:/bin/samtools-1.18/bin/:/bin/htslib-1.18/bin/"
+
+RUN apt-get install -y git uuid-runtime
+
+RUN install.r BiocManager
+RUN R -e "BiocManager::install('IRanges')"
+RUN install.r tidygenomics
 
 CMD ["/bin/bash"]
