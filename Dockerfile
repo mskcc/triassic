@@ -7,6 +7,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     ## Install python 3 and system dependencies
         && apt-get install -y --no-install-recommends build-essential procps libpq-dev python3.8 python3-pip python3-setuptools python3-dev python3.11-venv \
+    ##
+    ## Libs for R-packages (need to compile various packages like tidyverse, devtools)
+    ##
+        && apt-get install -y libcurl4-openssl-dev libfontconfig1-dev libxml2-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libcairo2-dev \
     ## Install bed tools
         && apt-get install bedtools \
     ## Move python usr library
