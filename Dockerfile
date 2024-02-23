@@ -10,7 +10,7 @@ RUN apt-get update \
     ##
     ## Libs for R-packages (need to compile various packages like tidyverse, devtools)
     ##
-        && apt-get install -y libcurl4-openssl-dev libfontconfig1-dev libxml2-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libcairo2-dev \
+        && apt-get install -y libcurl4-openssl-dev libfontconfig1-dev libxml2-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libcairo2-dev libgit2-dev libssh2-1-dev \
     ## Install bed tools
         && apt-get install bedtools \
     ## Move python usr library
@@ -81,5 +81,6 @@ RUN apt-get install -y git uuid-runtime
 RUN install.r BiocManager
 RUN R -e "BiocManager::install('IRanges')"
 RUN install.r tidygenomics
+RUN install.r git2r
 
 CMD ["/bin/bash"]
