@@ -35,6 +35,8 @@ RUN apt-get update \
             scipy \
             pandas
 
+RUN apt-get install -y git uuid-runtime
+
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
 FROM base AS build
@@ -68,9 +70,5 @@ WORKDIR "/"
 COPY --from=build /bin/samtools-1.18 /bin/samtools-1.18
 COPY --from=build /bin/htslib-1.18 /bin/htslib-1.18
 ENV PATH="${PATH}:/bin/samtools-1.18/bin/:/bin/htslib-1.18/bin/"
-
-FROM base as stage2
-
-RUN apt-get install -y git
 
 CMD ["/bin/bash"]
