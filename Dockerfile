@@ -37,8 +37,6 @@ RUN apt-get update \
 
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
-
-
 FROM base AS build
 
 # Install samtools
@@ -62,8 +60,6 @@ RUN ./configure --prefix=/bin/htslib-1.18 \
     && make \
     && make install
 
-RUN apt-get install -y git
-
 # Create image
 
 FROM base as image
@@ -72,5 +68,9 @@ WORKDIR "/"
 COPY --from=build /bin/samtools-1.18 /bin/samtools-1.18
 COPY --from=build /bin/htslib-1.18 /bin/htslib-1.18
 ENV PATH="${PATH}:/bin/samtools-1.18/bin/:/bin/htslib-1.18/bin/"
+
+FROM base as stage2
+
+RUN apt-get install -y git
 
 CMD ["/bin/bash"]
