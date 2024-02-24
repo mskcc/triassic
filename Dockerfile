@@ -82,5 +82,6 @@ RUN install.r BiocManager
 RUN R -e "BiocManager::install('IRanges')"
 RUN install.r tidygenomics
 RUN install.r git2r
+RUN R -e "BiocManager::install('biomaRt')"
 
 CMD ["/bin/bash"]
